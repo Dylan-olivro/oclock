@@ -8,14 +8,15 @@ const pause = document.getElementById("pause");
 
 let departMinutes = 0;
 let temps = departMinutes * 60;
-
-let a = true;
 let interval;
 // let fin = false;
+
+timerElement.innerText = "00:00";
 
 function minuteur() {
   let minutes = parseInt(temps / 60, 10);
   let secondes = parseInt(temps % 60, 10);
+  console.log(temps);
 
   //   minutes = minutes < 10 ? "0" + minutes : minutes;
   if (minutes < 10) {
@@ -30,13 +31,13 @@ function minuteur() {
   //   temps = temps <= 0 ? 0 : temps - 1;
   if (temps <= 0) {
     temps = 0;
-    // alert("fin");
+    departMinutes = 0;
+    clearInterval(interval);
+    alert("fin");
   } else {
     temps = temps - 1;
   }
 }
-
-timerElement.innerText = "00:00";
 
 up.addEventListener("click", () => {
   departMinutes++;
@@ -45,7 +46,7 @@ up.addEventListener("click", () => {
   } else {
     timerElement.innerText = "0" + departMinutes + ":00";
   }
-  temps = departMinutes * 60 - 1;
+  temps = departMinutes * 60;
 });
 down.addEventListener("click", () => {
   departMinutes--;
@@ -58,13 +59,14 @@ down.addEventListener("click", () => {
     timerElement.innerText = "0" + departMinutes + ":00";
   }
 
-  temps = departMinutes * 60 - 1;
+  temps = departMinutes * 60;
 });
 reset.addEventListener("click", () => {
-  // departMinutes = 0;
-  // timerElement.innerText = "0" + departMinutes + ":00";
-  // temps = 0;
-  window.location.reload();
+  clearInterval(interval);
+  departMinutes = 0;
+  temps = 0;
+  timerElement.innerText = "0" + departMinutes + ":00";
+  // window.location.reload();
 });
 pause.addEventListener("click", () => {
   clearInterval(interval);
@@ -75,9 +77,12 @@ start.addEventListener("click", () => {
     departMinutes = number.value;
     temps = departMinutes * 60 - 1;
   }
+  temps = departMinutes * 60 - 1;
   // if (a) {
-  clearInterval(interval);
-  interval = setInterval(minuteur, 100);
+  if (interval !== null) {
+    clearInterval(interval);
+  }
+  interval = setInterval(minuteur, 1000);
   // a = false;
   // }
 });
