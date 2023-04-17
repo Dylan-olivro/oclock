@@ -8,59 +8,70 @@ const pause = document.getElementById("pause");
 
 let departMinutes = 0;
 let temps = departMinutes * 60;
-let interval = null;
+let interval;
+
+timerElement.innerText = "00:00";
 
 function minuteur() {
   let minutes = parseInt(temps / 60, 10);
   let secondes = parseInt(temps % 60, 10);
+  // console.log(temps);
   minutes = minutes < 10 ? "0" + minutes : minutes;
   secondes = secondes < 10 ? "0" + secondes : secondes;
   timerElement.innerText = `${minutes}:${secondes}`;
 
   if (temps <= 0) {
+    temps = 0;
+    departMinutes = 0;
     clearInterval(interval);
-    alert("Fin du compte à rebours !");
+    alert("fin");
   } else {
-    temps--;
+    temps = temps - 1;
   }
 }
 
 up.addEventListener("click", () => {
   departMinutes++;
-  updateTimer();
+  if (departMinutes >= 10) {
+    timerElement.innerText = departMinutes + ":00";
+  } else {
+    timerElement.innerText = "0" + departMinutes + ":00";
+  }
+  temps = departMinutes * 60;
 });
 down.addEventListener("click", () => {
-  if (departMinutes > 0) {
-    departMinutes--;
-    updateTimer();
+  departMinutes--;
+
+  if (departMinutes >= 10) {
+    timerElement.innerText = departMinutes + ":00";
+  } else if (departMinutes < 0) {
+    departMinutes = 0;
+  } else {
+    timerElement.innerText = "0" + departMinutes + ":00";
   }
+
+  temps = departMinutes * 60;
 });
 reset.addEventListener("click", () => {
   clearInterval(interval);
   departMinutes = 0;
   temps = 0;
-  updateTimer();
+  timerElement.innerText = "0" + departMinutes + ":00";
 });
 pause.addEventListener("click", () => {
   clearInterval(interval);
 });
 
 start.addEventListener("click", () => {
-  if (!interval) {
-    if (number.value !== "") {
-      departMinutes = parseInt(number.value, 10);
-    }
-    temps = departMinutes * 60;
-    interval = setInterval(minuteur, 1000);
+  if (number.value !== "") {
+    departMinutes = number.value;
+    temps = departMinutes * 60 - 1;
   }
+  temps = departMinutes * 60 - 1;
+  if (interval !== null) {
+    clearInterval(interval);
+  }
+  interval = setInterval(minuteur, 1000);
 });
 
-function updateTimer() {
-  let minutes = departMinutes < 10 ? "0" + departMinutes : departMinutes;
-  timerElement.innerText = `${minutes}:00`;
-  temps = departMinutes * 60;
-  clearInterval(interval);
-  interval = null;
-}
-
-updateTimer();
+// PROBLEME AVEC LE BOUTON START QUI RENITIALISE LE COMPTEUR

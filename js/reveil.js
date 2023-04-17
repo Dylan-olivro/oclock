@@ -1,10 +1,6 @@
-const alarme = document.getElementById("alarme");
-const text = document.getElementById("text");
-const alarmeFini = document.getElementById("alarmeFini");
-const alarmeAVenir = document.getElementById("alarmeAVenir");
+const expiredAlarm = document.getElementById("expiredAlarm");
+const newAlarm = document.getElementById("newAlarm");
 const time = document.getElementById("time");
-
-const resultat = document.getElementById("resultat");
 
 function currentHour() {
   let today = new Date();
@@ -16,21 +12,17 @@ function currentHour() {
   let m = minutes < 10 ? "0" + minutes : minutes;
   let s = seconds < 10 ? "0" + seconds : seconds;
 
-  let reload = setTimeout(currentHour, 1000);
-  let actuel = h + ":" + m + ":" + s;
-  time.innerHTML = actuel;
-  // console.log(actuel);
-  return actuel;
+  let currentHours = h + ":" + m + ":" + s;
+  time.innerHTML = currentHours;
+  return currentHours;
 }
 
-currentHour();
-
 function updateDisplay(data) {
-  let result = data.filter((element) => {
-    let f = document.createElement("p");
-    let a = document.createElement("p");
-    alarmeFini.append(f);
-    alarmeAVenir.append(a);
+  expiredAlarm.innerHTML = "";
+  newAlarm.innerHTML = "";
+  data.forEach((element) => {
+    let isExpired = document.createElement("p");
+    let isNew = document.createElement("p");
 
     // Define two time strings
     const time1 = currentHour();
@@ -59,30 +51,22 @@ function updateDisplay(data) {
     }
 
     if (element.reveil < currentHour()) {
-      f.innerText = element.reveil + " Passé";
+      isExpired.innerHTML = `${element.reveil} Expired <form method="post" class="deleteForm"><button type="submit" name="${element.id}"><i class="fa-solid fa-trash"></i></button></form>`;
+      expiredAlarm.appendChild(isExpired);
     } else {
-      a.innerText = element.reveil + ` Alarme dans ${H}h${M}m${S}s`;
+      isNew.innerText = `${element.reveil} Alarme dans ${H}h${M}m${S}s`;
+      newAlarm.appendChild(isNew);
     }
-    // let m = parseInt(element.reveil) - parseInt(currentHour());
-    // console.log(element.reveil);
-    return element;
   });
 }
 
-fetch("alarme.php")
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    data.sort((a, b) => (a.reveil > b.reveil ? 1 : -1));
-
-    updateDisplay(data);
-    setInterval(() => {
-      alarmeFini.innerHTML = "";
-      alarmeAVenir.innerHTML = "";
+setInterval(() => {
+  currentHour();
+  fetch("alarme.php")
+    .then((response) => response.json())
+    .then((data) => {
+      data.sort((a, b) => (a.reveil > b.reveil ? 1 : -1));
       updateDisplay(data);
-    }, 1000);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+    })
+    .catch((error) => console.log(error));
+}, 500);
