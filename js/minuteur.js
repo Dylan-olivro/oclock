@@ -8,6 +8,7 @@ const pause = document.getElementById("pause");
 
 let departMinutes = 0;
 let temps = departMinutes * 60;
+
 let a = true;
 let interval;
 // let fin = false;
@@ -44,9 +45,8 @@ up.addEventListener("click", () => {
   } else {
     timerElement.innerText = "0" + departMinutes + ":00";
   }
-  temps = departMinutes * 60;
+  temps = departMinutes * 60 - 1;
 });
-
 down.addEventListener("click", () => {
   departMinutes--;
 
@@ -58,9 +58,8 @@ down.addEventListener("click", () => {
     timerElement.innerText = "0" + departMinutes + ":00";
   }
 
-  temps = departMinutes * 60;
+  temps = departMinutes * 60 - 1;
 });
-
 reset.addEventListener("click", () => {
   // departMinutes = 0;
   // timerElement.innerText = "0" + departMinutes + ":00";
@@ -72,19 +71,13 @@ pause.addEventListener("click", () => {
 });
 
 start.addEventListener("click", () => {
-  console.log(number.value);
-  console.log(departMinutes);
   if (number.value !== "") {
     departMinutes = number.value;
+    temps = departMinutes * 60 - 1;
   }
-  temps = departMinutes * 60;
-  console.log(departMinutes);
   // if (a) {
-  interval = setInterval(minuteur, 1000);
-  // remettre 1000
-
-  // console.log(a);
+  clearInterval(interval);
+  interval = setInterval(minuteur, 100);
   // a = false;
-  // console.log(a);
   // }
 });
