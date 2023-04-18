@@ -7,15 +7,19 @@ const number = document.getElementById("number");
 const pause = document.getElementById("pause");
 
 let departMinutes = 0;
+let departSecondes = 0;
 let temps = departMinutes * 60;
 let interval = null;
+let isPaused = true;
 
 function minuteur() {
   let minutes = parseInt(temps / 60, 10);
-  let secondes = parseInt(temps % 60, 10);
+  let secondes = parseInt(departSecondes, 10);
+
   minutes = minutes < 10 ? "0" + minutes : minutes;
   secondes = secondes < 10 ? "0" + secondes : secondes;
-  timerElement.innerText = `${minutes}:${secondes}`;
+
+  timerElement.innerText = `<span id="minute">${minutes}</span>:<span id="seconde">${secondes}</span>`;
 
   if (temps <= 0) {
     clearInterval(interval);
@@ -25,8 +29,13 @@ function minuteur() {
   }
 }
 
+document.getElementById("minute").addEventListener("click", () => {
+  this.setAttribute("class", "isActive");
+});
+
 up.addEventListener("click", () => {
   departMinutes++;
+
   updateTimer();
 });
 down.addEventListener("click", () => {
@@ -46,10 +55,14 @@ pause.addEventListener("click", () => {
 });
 
 start.addEventListener("click", () => {
+  console.log(interval);
   if (!interval) {
     if (number.value !== "") {
       departMinutes = parseInt(number.value, 10);
     }
+    // if (interval !== null) {
+    // }
+
     temps = departMinutes * 60;
     interval = setInterval(minuteur, 1000);
   }

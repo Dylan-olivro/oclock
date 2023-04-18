@@ -1,72 +1,84 @@
-const expiredAlarm = document.getElementById("expiredAlarm");
-const newAlarm = document.getElementById("newAlarm");
-const time = document.getElementById("time");
+const alarms = [];
 
-function currentHour() {
-  let today = new Date();
-  let hours = today.getHours();
-  let minutes = today.getMinutes();
-  let seconds = today.getSeconds();
+function setAlarm() {
+  const inputTime = document.getElementById("alarm-time").value;
+  const inputDay = document.getElementById("alarm-day").value;
+  let inputMessage = document.getElementById("alarm-message").value; // Récupérer le message de l'alarme
+  const alarmTime = new Date(inputDay + " " + inputTime);
 
-  let h = hours < 10 ? "0" + hours : hours;
-  let m = minutes < 10 ? "0" + minutes : minutes;
-  let s = seconds < 10 ? "0" + seconds : seconds;
+  if (inputTime == "") {
+    alert("Veuillez indiquer une heure");
+  } else if (inputDay == "") {
+    alert("Veuillez indiquer une date");
+  } else {
+    const alarm = {
+      time: alarmTime,
+      message: inputMessage, // Ajouter le message à l'objet alarme
+      isPassed: false,
+      timeRemaining: "",
+    };
 
-  let currentHours = h + ":" + m + ":" + s;
-  time.innerHTML = currentHours;
-  return currentHours;
+    alarms.push(alarm);
+
+    updateAlarmsList();
+  }
+
+  setInterval(updateTimeRemaining, 1000);
 }
 
-function updateDisplay(data) {
-  expiredAlarm.innerHTML = "";
-  newAlarm.innerHTML = "";
-  data.forEach((element) => {
-    let isExpired = document.createElement("p");
-    let isNew = document.createElement("p");
+function updateAlarmsList() {
+  const upcomingAlarmsList = document.getElementById("upcoming-alarms-list");
+  const passedAlarmsList = document.getElementById("passed-alarms-list");
 
-    // Define two time strings
-    const time1 = currentHour();
-    const time2 = element.reveil;
+  upcomingAlarmsList.innerHTML = "";
+  passedAlarmsList.innerHTML = "";
 
-    // Convert time strings to Date objects
-    const date1 = new Date(`2000-01-01T${time1}`);
-    const date2 = new Date(`2000-01-01T${time2}`);
+  alarms.sort((a, b) => a.time - b.time);
 
-    // Calculate time difference in milliseconds
-    const timeDiffMs = Math.abs(date2 - date1);
+  alarms.forEach((alarm) => {
+    const alarmItem = document.createElement("li");
+    const alarmTime = alarm.time.toLocaleString();
+    let alarmText = `Alarme pour ${alarmTime}`;
 
-    // Convert time difference from milliseconds to seconds
-    const timeDiffSecs = timeDiffMs / 1000;
-
-    // Convert time difference from seconds to hours, minutes, and seconds
-    const timeDiffHrs = Math.floor(timeDiffSecs / 3600);
-    const timeDiffMins = Math.floor((timeDiffSecs % 3600) / 60);
-    const timeDiffSecsRem = Math.round(timeDiffSecs % 60);
-    const H = timeDiffHrs < 10 ? "0" + timeDiffHrs : timeDiffHrs;
-    const M = timeDiffMins < 10 ? "0" + timeDiffMins : timeDiffMins;
-    const S = timeDiffSecsRem < 10 ? "0" + timeDiffSecsRem : timeDiffSecsRem;
-
-    if (element.reveil == currentHour()) {
-      alert(element.message);
+    if (alarm.isPassed) {
+      alarmItem.classList.add("passed");
+      alarmText += " (expirée)";
+    } else if (alarm.timeRemaining) {
+      alarmText += ` (${alarm.timeRemaining})`;
     }
 
-    if (element.reveil < currentHour()) {
-      isExpired.innerHTML = `${element.reveil} Expired <form method="post" class="deleteForm"><button type="submit" name="${element.id}"><i class="fa-solid fa-trash"></i></button></form>`;
-      expiredAlarm.appendChild(isExpired);
+    alarmItem.innerText = alarmText;
+
+    if (alarm.isPassed) {
+      passedAlarmsList.appendChild(alarmItem);
     } else {
-      isNew.innerText = `${element.reveil} Alarme dans ${H}h${M}m${S}s`;
-      newAlarm.appendChild(isNew);
+      upcomingAlarmsList.appendChild(alarmItem);
     }
   });
 }
 
-setInterval(() => {
-  currentHour();
-  fetch("alarme.php")
-    .then((response) => response.json())
-    .then((data) => {
-      data.sort((a, b) => (a.reveil > b.reveil ? 1 : -1));
-      updateDisplay(data);
-    })
-    .catch((error) => console.log(error));
-}, 500);
+function updateTimeRemaining() {
+  alarms.forEach((alarm) => {
+    const now = new Date();
+    const timeDiff = alarm.time - now;
+
+    if (timeDiff < 0 && !alarm.isPassed) {
+      alarm.isPassed = true;
+      alert(alarm.message); // Afficher une alerte avec le message de l'alarme lorsque l'alarme est déclenchée
+    }
+
+    if (!alarm.isPassed) {
+      const totalSecondsRemaining = Math.floor(timeDiff / 1000);
+      const daysRemaining = Math.floor(totalSecondsRemaining / (3600 * 24));
+      const hoursRemaining = Math.floor(
+        (totalSecondsRemaining % (3600 * 24)) / 3600
+      );
+      const minutesRemaining = Math.floor((totalSecondsRemaining % 3600) / 60);
+      const secondsRemaining = Math.floor(totalSecondsRemaining % 60);
+      alarm.timeRemaining = `${daysRemaining}j ${hoursRemaining}h ${minutesRemaining}m ${secondsRemaining}s`;
+    }
+  });
+
+  // Mettre à jour les alarmes sur la page
+  updateAlarmsList();
+}

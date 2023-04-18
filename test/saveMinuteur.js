@@ -39,6 +39,7 @@ up.addEventListener("click", () => {
   }
   temps = departMinutes * 60;
 });
+
 down.addEventListener("click", () => {
   departMinutes--;
 
@@ -52,12 +53,15 @@ down.addEventListener("click", () => {
 
   temps = departMinutes * 60;
 });
+
 reset.addEventListener("click", () => {
   clearInterval(interval);
   departMinutes = 0;
   temps = 0;
+  number.value = "";
   timerElement.innerText = "0" + departMinutes + ":00";
 });
+
 pause.addEventListener("click", () => {
   clearInterval(interval);
 });
@@ -65,13 +69,9 @@ pause.addEventListener("click", () => {
 start.addEventListener("click", () => {
   if (number.value !== "") {
     departMinutes = number.value;
-    temps = departMinutes * 60 - 1;
+    temps = departMinutes * 60;
+    number.value = "";
   }
-  temps = departMinutes * 60 - 1;
-  if (interval !== null) {
-    clearInterval(interval);
-  }
+  clearInterval(interval);
   interval = setInterval(minuteur, 1000);
 });
-
-// PROBLEME AVEC LE BOUTON START QUI RENITIALISE LE COMPTEUR

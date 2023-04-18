@@ -1,47 +1,31 @@
-<?php
-require_once('./include/bd.php');
-?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./js/reveil.js" defer></script>
-    <link rel="stylesheet" href="./css/reveil.css">
-    <title>Reveil</title>
+    <title>Réveil</title>
+    <script src="./js/reveil.js"></script>
 </head>
 
 <body>
     <?php require_once('./include/header.php'); ?>
-    <div id="time"></div>
-    <form action="" method='post'>
-        <input type="text" name="message">
-        <input type="time" name="alarme">
-        <button type="submit" name="submit"><i class="fa-solid fa-check"></i></button>
-    </form>
-    <?php
-    if (isset($_POST['submit'])) {
-        $insertAlarm = $bdd->prepare("INSERT INTO alarme(message,reveil) VALUES (?,?)");
-        $insertAlarm->execute([$_POST['message'], $_POST['alarme']]);
-        header('Location: reveil.php');
-    }
+    <h1>Réveil</h1>
+    <label for="alarm-time">Heure :</label>
+    <input type="time" id="alarm-time">
+    <br>
+    <label for="alarm-day">Jour :</label>
+    <input type="date" id="alarm-day">
+    <br>
+    <label for="alarm-message">Message :</label>
+    <input type="text" id="alarm-message">
+    <br>
+    <button onclick="setAlarm()">Définir l'alarme</button>
 
-    $recupAlarm2 = $bdd->prepare("SELECT * from alarme");
-    $recupAlarm2->execute();
-    $result2 =  $recupAlarm2->fetchAll(PDO::FETCH_ASSOC);
+    <h2>Alarmes à venir</h2>
+    <ul id="upcoming-alarms-list"></ul>
 
-    foreach ($result2 as $key) {
-        if (isset($_POST[$key['id']])) {
-            $deleteAlarm = $bdd->prepare("DELETE FROM alarme WHERE id = ?");
-            $deleteAlarm->execute([$key["id"]]);
-        }
-    }
-    ?>
-    <div id="expiredAlarm"></div>
-    <div id="newAlarm"></div>
+    <h2>Alarmes passées</h2>
+    <ul id="passed-alarms-list"></ul>
+
 </body>
-<script src="https://kit.fontawesome.com/9a09d189de.js" crossorigin="anonymous"></script>
 
 </html>
