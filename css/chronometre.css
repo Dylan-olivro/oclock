@@ -1,20 +1,34 @@
-.isActive {
-  border: 1px solid;
-}
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80vh;
-  justify-content: center;
-  /* justify-content: center; */
 }
-
-#timer {
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 7%;
+}
+.timerDisplay {
   font-size: 5rem;
+  margin-top: 20px;
   color: #fff;
+  border: 5px solid;
+  border-radius: 50px;
+  padding: 10px 15px;
+  background-color: #000;
 }
-.btn {
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+.input {
+  font-size: 2rem;
+}
+.input i {
+  padding: 10px;
+  width: 32px;
+}
+.input {
   padding: 10px 20px;
   text-transform: uppercase;
   border-radius: 8px;
@@ -29,7 +43,7 @@ main {
   user-select: none;
 }
 
-.btn:hover {
+.input:hover {
   color: #ffffff;
   background: #c4840e;
   border: 1px solid #c4840e;
@@ -37,20 +51,17 @@ main {
   box-shadow: 0 0 5px #c4840e, 0 0 20px #c4840e, 0 0 50px #c4840e,
     0 0 100px #c4840e;
 }
-
-#divNumber {
+#tour {
+  /* background-color: red; */
   display: flex;
   justify-content: center;
+  width: 600px;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
-#number {
-  padding: 10px 20px;
+p {
+  text-align: center;
   width: 30%;
-  border-radius: 8px;
-  text-shadow: none;
-  background: transparent;
-  box-shadow: transparent;
-  border: 1px solid #ffffff80;
-  transition: 0.5s ease;
-  user-select: none;
   color: #fff;
+  border: 1px solid;
 }

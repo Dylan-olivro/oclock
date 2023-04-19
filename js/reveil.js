@@ -1,11 +1,19 @@
 const alarms = [];
+let dateDefault = document.getElementById("alarm-day");
+let date = new Date();
+// Get year, month, and day part from the date
+let year = date.toLocaleString("default", { year: "numeric" });
+let month = date.toLocaleString("default", { month: "2-digit" });
+let day = date.toLocaleString("default", { day: "2-digit" });
+// Generate yyyy-mm-dd date string
+let formattedDate = year + "-" + month + "-" + day;
+dateDefault.value = formattedDate;
 
 function setAlarm() {
   const inputTime = document.getElementById("alarm-time").value;
   const inputDay = document.getElementById("alarm-day").value;
   let inputMessage = document.getElementById("alarm-message").value; // Récupérer le message de l'alarme
   const alarmTime = new Date(inputDay + " " + inputTime);
-
   if (inputTime == "") {
     alert("Veuillez indiquer une heure");
   } else if (inputDay == "") {

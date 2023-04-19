@@ -7,23 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./js/chronometre.js" defer></script>
     <script src="https://kit.fontawesome.com/9a09d189de.js" crossorigin="anonymous" defer></script>
-
-    <title>Chronometre</title>
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/chronometre.css">
+    <link rel="shortcut icon" href="#">
+    <title>Chronomètre</title>
 </head>
 
 <body>
     <?php require_once('./include/header.php'); ?>
-    <div class="container">
-        <div class="timerDisplay">
-            00 : 00 : 00 : 000
-        </div>
-        <div class="buttons">
-            <button id="startTimer"><i class="fa-solid fa-play"></i></button>
-            <button id="resetTimer"><i class="fa-solid fa-power-off"></i></button>
-            <button id="tourTimer"><i class="fa-solid fa-circle-notch"></i></button>
+    <main>
+        <div class="container">
+            <div class="buttons">
+                <button id="startTimer" class="input"><i class="fa-solid fa-play"></i></button>
+                <button id="resetTimer" class="input"><i class="fa-solid fa-power-off"></i></button>
+                <button id="tourTimer" class="input"><i class="fa-solid fa-circle-notch"></i></button>
+            </div>
+            <div class="timerDisplay">
+                00 : 00 : 00 : 000
+            </div>
         </div>
         <div id="tour"></div>
-    </div>
+    </main>
 </body>
 
 </html>

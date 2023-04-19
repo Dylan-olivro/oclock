@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: linear-gradient(to right, #300b41, #74468a);
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+nav {
+  width: 30%;
+  display: flex;
+  justify-content: space-evenly;
+}
+nav a {
+  text-decoration: none;
+  color: #fff;
+  padding: 10px 0;
+  width: 20%;
+  text-align: center;
+  font-size: 2rem;
+}
+nav a:hover {
+  /* color: #f4c2c2; */
+  color: #ffdb58;
+  /* color: #afeeee; */
+  /* color: #556b2f; */
+  /* color: #c0c0c0;  */
+}

@@ -7,7 +7,7 @@ setInterval(() => {
   let seconds = check(today.getSeconds());
 
   time.textContent = `${hours}:${minutes}:${seconds}`;
-}, 1000);
+}, 100);
 
 function check(i) {
   return i < 10 ? `0${i}` : i;

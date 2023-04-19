@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/reveil.js" defer></script>
+    <script src="https://kit.fontawesome.com/9a09d189de.js" crossorigin="anonymous" defer></script>
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/reveil.css">
+    <link rel="shortcut icon" href="#">
     <title>Réveil</title>
-    <script src="./js/reveil.js"></script>
 </head>
 
 <body>
@@ -25,6 +32,7 @@
 
     <h2>Alarmes passées</h2>
     <ul id="passed-alarms-list"></ul>
+
 
 </body>
 
