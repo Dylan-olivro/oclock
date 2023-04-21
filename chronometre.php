@@ -23,7 +23,10 @@
                 <button id="tourTimer" class="input"><i class="fa-solid fa-circle-notch"></i></button>
             </div>
             <div class="timerDisplay">
-                00 : 00 : 00 : 000
+                <span>00</span>:
+                <span>00</span>:
+                <span>00</span>:
+                <span id="last">000</span>
             </div>
         </div>
         <div id="tour"></div>

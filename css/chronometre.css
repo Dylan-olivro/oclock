@@ -23,6 +23,8 @@ main {
   padding: 10px 15px;
   background-color: #000;
   font-family: digital;
+  display: flex;
+  justify-content: center;
 }
 .buttons {
   display: flex;
@@ -72,4 +74,11 @@ p {
   width: 30%;
   color: #fff;
   border: 1px solid;
+}
+span {
+  display: block;
+  min-width: 81px;
+}
+#last {
+  min-width: 118px;
 }

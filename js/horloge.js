@@ -6,7 +6,7 @@ setInterval(() => {
   let minutes = check(today.getMinutes());
   let seconds = check(today.getSeconds());
 
-  time.textContent = `${hours}:${minutes}:${seconds}`;
+  time.innerHTML = `<span>${hours}</span>:<span>${minutes}</span>:<span>${seconds}</span>`;
 }, 100);
 
 function check(i) {

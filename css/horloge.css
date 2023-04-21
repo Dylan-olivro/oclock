@@ -11,13 +11,18 @@ main {
   background-color: #000;
   font-size: 6rem;
   border: 5px solid;
-  display: inline-flex;
   margin: 10% auto;
   border-radius: 50px;
   padding: 10px 20px;
   /* box-shadow: 10px 10px 10px #f4c2c2; */
   font-family: digital;
-  min-width: 360px;
+  /* min-width: 360px; */
+  display: flex;
   justify-content: center;
+  /* text-align: center; */
+}
+#time span {
+  display: block;
+  min-width: 95px;
   text-align: center;
 }

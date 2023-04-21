@@ -17,7 +17,7 @@ function startTimer() {
 function resetTimer() {
   clearInterval(interval);
   [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
-  timerRef.innerHTML = "00 : 00 : 00 : 000 ";
+  timerRef.innerHTML = `<span>00</span> : <span>00</span> : <span>00</span> : <span id="last">000</span>`;
   isPaused = true;
   tour.innerHTML = "";
 }
@@ -50,7 +50,7 @@ function displayTimer() {
   let m = minutes.toString().padStart(2, "0");
   let s = seconds.toString().padStart(2, "0");
   let ms = milliseconds.toString().padStart(3, "0");
-  timerRef.innerHTML = `${h} : ${m} : ${s} : ${ms}`;
+  timerRef.innerHTML = `<span>${h}</span> : <span>${m}</span> : <span>${s}</span> : <span id="last">${ms}</span>`;
 }
 
 document.getElementById("startTimer").addEventListener("click", startTimer);
