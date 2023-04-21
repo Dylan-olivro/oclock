@@ -1,3 +1,8 @@
+@font-face {
+  font-family: digital;
+  src: url(./DS-DIGI.TTF);
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -7,6 +12,7 @@ main {
   display: flex;
   flex-direction: column;
   margin-top: 7%;
+  width: 560px;
 }
 .timerDisplay {
   font-size: 5rem;
@@ -16,6 +22,7 @@ main {
   border-radius: 50px;
   padding: 10px 15px;
   background-color: #000;
+  font-family: digital;
 }
 .buttons {
   display: flex;
@@ -58,6 +65,7 @@ main {
   width: 600px;
   flex-wrap: wrap;
   margin-top: 10px;
+  font-family: digital;
 }
 p {
   text-align: center;

@@ -2,10 +2,30 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 10%;
 }
 .list {
   display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  text-align: center;
+  color: #fff;
+  margin-top: 1%;
 }
+.list h2 {
+  text-decoration: underline;
+  margin-bottom: 5%;
+}
+
+#upcoming-alarms-list,
+#passed-alarms-list {
+  width: 320px;
+  list-style-type: none;
+}
+.messageDiv {
+  margin: 1% 0;
+}
+
 .btn {
   padding: 10px 20px;
   text-transform: uppercase;
@@ -29,9 +49,11 @@ main {
   box-shadow: 0 0 5px #c4840e, 0 0 20px #c4840e, 0 0 50px #c4840e,
     0 0 100px #c4840e;
 }
-.message {
+.message,
+.date,
+.time {
   padding: 10px 20px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   border-radius: 8px;
   font-size: 17px;
   font-weight: 500;
@@ -41,5 +63,5 @@ main {
   box-shadow: transparent;
   border: 1px solid #ffffff80;
   transition: 0.5s ease;
-  user-select: none;
+  /* user-select: none; */
 }

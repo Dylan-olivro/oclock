@@ -18,10 +18,10 @@
     <main>
         <div class="input">
             <!-- <label for="alarm-time">Heure :</label> -->
-            <input type="time" id="alarm-time">
+            <input type="time" id="alarm-time" class="time">
             <!-- <br> -->
             <!-- <label for="alarm-day">Jour :</label> -->
-            <input type="date" id="alarm-day">
+            <input type="date" id="alarm-day" class="date">
         </div>
         <!-- <br> -->
         <!-- <label for="alarm-message">Message :</label> -->
